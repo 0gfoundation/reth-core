@@ -150,3 +150,23 @@ redundant_pub_crate = "allow"
 significant_drop_in_scrutinee = "allow"
 significant_drop_tightening = "allow"
 too_long_first_doc_paragraph = "allow"
+
+# reth-v2.8.1 migration: in 0g-reth (reth 1.8.1) `primitives-traits` lived in-tree and got the 0G
+# alloy fork through 0g-reth's own `[patch.crates-io]`. reth v2.8.1 moved it here, so building
+# reth-core on its own needs the same fork: every alloy crate of the 0g-alloy workspace that is in
+# this dependency graph is patched, so none of them mixes with its crates.io copy. This only affects
+# building reth-core itself; 0g-reth keeps its own patch. The rev is the 0g-alloy replay
+# (migration/reth-v2.8.1) of the 0g-alloy commit 0g-reth pinned in the replayed commit.
+[patch.crates-io]
+alloy-consensus = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-consensus-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-eips = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-genesis = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-json-rpc = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-network = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-network-primitives = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-rpc-types-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-rpc-types-eth = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-serde = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-signer = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
+alloy-tx-macros = { git = "https://github.com/0gfoundation/0g-alloy", rev = "51c292644e771d817b4fd926e5865a4607f479cc" }
