@@ -113,6 +113,11 @@ pub trait BlockBody:
     /// Returns block withdrawals if any.
     fn withdrawals(&self) -> Option<&Withdrawals>;
 
+    /// Returns slashed validator entries if any.
+    fn slashed(&self) -> Option<&Withdrawals> {
+        None
+    }
+
     /// Calculate the withdrawals root for the block body.
     ///
     /// Returns `Some(root)` if withdrawals are present, otherwise `None`.
@@ -272,6 +277,10 @@ where
     #[inline]
     fn withdrawals(&self) -> Option<&Withdrawals> {
         self.withdrawals.as_ref()
+    }
+
+    fn slashed(&self) -> Option<&Withdrawals> {
+        self.slashed.as_ref()
     }
 
     #[inline]

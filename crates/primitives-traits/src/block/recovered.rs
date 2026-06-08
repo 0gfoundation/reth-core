@@ -557,6 +557,7 @@ where
             transactions,
             ommers: block.body.ommers,
             withdrawals: block.body.withdrawals,
+            slashed: block.body.slashed,
         };
 
         let block = alloy_consensus::Block::new(header, body);
@@ -853,7 +854,7 @@ mod rpc_compat {
 
             let (block, senders) = self.split_sealed();
             let (header, body) = block.split_sealed_header_body();
-            let BlockBody { transactions, ommers, withdrawals } = body.into_ethereum_body();
+            let BlockBody { transactions, ommers, withdrawals, .. } = body.into_ethereum_body();
 
             let transactions = transactions
                 .into_iter()
@@ -961,6 +962,7 @@ mod tests {
             transactions: vec![recovered_tx],
             ommers: vec![],
             withdrawals: None,
+            slashed: None,
         };
         let block_with_recovered = alloy_consensus::Block::new(header, body);
 
