@@ -543,13 +543,14 @@ mod tests {
                 B256::ZERO,
             ));
 
-        // reth-v2.8.1 migration: fixture new upstream after reth 1.8.1; gets the 0G `slashed`
-        // field (none).
+        // reth-v2.8.1 migration: fixture new upstream after reth 1.8.1; gets the 0G `slashed` and
+        // `bridge_requests` fields (none).
         let body = alloy_consensus::BlockBody {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
             slashed: None,
+            bridge_requests: None,
         };
 
         alloy_consensus::Block::new(header, body)
@@ -590,6 +591,8 @@ mod tests {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
+            slashed: None,
+            bridge_requests: None,
         };
 
         // Create the block
@@ -669,13 +672,14 @@ mod tests {
             ));
 
         // Create block body with the transaction
-        // reth-v2.8.1 migration: test new upstream after reth 1.8.1; gets the 0G `slashed` field
-        // (none).
+        // reth-v2.8.1 migration: test new upstream after reth 1.8.1; gets the 0G `slashed` and
+        // `bridge_requests` fields (none).
         let body = alloy_consensus::BlockBody {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
             slashed: None,
+            bridge_requests: None,
         };
 
         // Create the block

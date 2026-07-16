@@ -156,17 +156,20 @@ too_long_first_doc_paragraph = "allow"
 # reth-core on its own needs the same fork: every alloy crate of the 0g-alloy workspace that is in
 # this dependency graph is patched, so none of them mixes with its crates.io copy. This only affects
 # building reth-core itself; 0g-reth keeps its own patch. The rev is the 0g-alloy replay
-# (migration/reth-v2.8.1) of the 0g-alloy commit 0g-reth pinned in the replayed commit.
+# (migration/reth-v2.8.1) of the 0g-alloy commit 0g-reth pinned in the replayed commit; from the
+# bridge commit on it is the 0g-alloy commit after that replay which also carries this commit's
+# (and the slashed commit's) `InMemorySize` change, because upstream moved that impl into
+# alloy-consensus.
 [patch.crates-io]
-alloy-consensus = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-consensus-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-eips = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-genesis = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-json-rpc = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-network = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-network-primitives = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-rpc-types-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-rpc-types-eth = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-serde = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-signer = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
-alloy-tx-macros = { git = "https://github.com/0gfoundation/0g-alloy", rev = "6a996f51802e7c598161c3bc40dcea4a93a427ba" }
+alloy-consensus = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-consensus-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-eips = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-genesis = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-json-rpc = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-network = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-network-primitives = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-rpc-types-any = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-rpc-types-eth = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-serde = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-signer = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }
+alloy-tx-macros = { git = "https://github.com/0gfoundation/0g-alloy", rev = "3915c65d91671e57e878105911f70a2d3086dddd" }

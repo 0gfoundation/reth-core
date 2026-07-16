@@ -21,10 +21,15 @@ use crate::transaction::signed::RecoveryError;
 /// let tx = TxLegacy::default();
 /// let signed_tx = Signed::new_unchecked(tx, Signature::test_signature(), B256::ZERO);
 /// let envelope = TxEnvelope::Legacy(signed_tx);
-// reth-v2.8.1 migration: doc example new upstream after reth 1.8.1; gets the 0G `slashed` field
-// (none) so the doctest still compiles.
-/// let body =
-///     BlockBody { transactions: vec![envelope], ommers: vec![], withdrawals: None, slashed: None };
+// reth-v2.8.1 migration: doc example new upstream after reth 1.8.1; gets the 0G `slashed` and
+// `bridge_requests` fields (none) so the doctest still compiles.
+/// let body = BlockBody {
+///     transactions: vec![envelope],
+///     ommers: vec![],
+///     withdrawals: None,
+///     slashed: None,
+///     bridge_requests: None,
+/// };
 /// let block = Block::new(header, body);
 /// let sealed_block = SealedBlock::new_unchecked(block, B256::ZERO);
 ///
