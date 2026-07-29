@@ -113,6 +113,12 @@ pub trait BlockBody:
     /// Returns block withdrawals if any.
     fn withdrawals(&self) -> Option<&Withdrawals>;
 
+    /// Returns the bridge requests SSZ blob if present.
+    #[inline]
+    fn bridge_requests(&self) -> Option<&Bytes> {
+        None
+    }
+
     /// Calculate the withdrawals root for the block body.
     ///
     /// Returns `Some(root)` if withdrawals are present, otherwise `None`.
@@ -275,6 +281,11 @@ where
     }
 
     #[inline]
+    fn bridge_requests(&self) -> Option<&Bytes> {
+        self.bridge_requests.as_ref()
+    }
+
+    #[inline]
     fn ommers(&self) -> Option<&[Self::OmmerHeader]> {
         Some(&self.ommers)
     }
@@ -287,3 +298,54 @@ pub type BodyTx<N> = <N as BlockBody>::Transaction;
 /// This is a helper alias to make it easy to refer to the inner `OmmerHeader` associated type of a
 /// given type that implements [`BlockBody`].
 pub type BodyOmmer<N> = <N as BlockBody>::OmmerHeader;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[cfg(feature = "serde")]
+    use alloy_consensus::Header;
+    use alloy_consensus::TxEnvelope;
+
+    #[test]
+    fn alloy_body_exposes_bridge_requests() {
+        let requests = Bytes::from_static(&[4, 0, 0, 0]);
+        let body = alloy_consensus::BlockBody::<TxEnvelope> {
+            bridge_requests: Some(requests.clone()),
+            ..Default::default()
+        };
+
+        assert_eq!(BlockBody::bridge_requests(&body), Some(&requests));
+    }
+
+    #[test]
+    fn alloy_body_size_includes_bridge_requests() {
+        let requests = Bytes::from(vec![0x42; 64]);
+        let without_requests = alloy_consensus::BlockBody::<TxEnvelope>::default();
+        let with_requests = alloy_consensus::BlockBody::<TxEnvelope> {
+            bridge_requests: Some(requests.clone()),
+            ..Default::default()
+        };
+
+        assert_eq!(
+            with_requests.size(),
+            without_requests.size() - core::mem::size_of::<Option<Bytes>>() + requests.len()
+        );
+    }
+
+    #[cfg(feature = "serde")]
+    #[test]
+    fn alloy_body_bincode_roundtrip_preserves_bridge_requests() {
+        let body = alloy_consensus::BlockBody::<u64, Header> {
+            bridge_requests: Some(Bytes::from_static(&[4, 0, 0, 0, 0xaa])),
+            ..Default::default()
+        };
+        let config = bincode::config::legacy();
+
+        let encoded = bincode::serde::encode_to_vec(&body, config).unwrap();
+        let (decoded, consumed): (alloy_consensus::BlockBody<u64, Header>, _) =
+            bincode::serde::decode_from_slice(&encoded, config).unwrap();
+
+        assert_eq!(consumed, encoded.len());
+        assert_eq!(decoded, body);
+    }
+}
