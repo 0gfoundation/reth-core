@@ -590,7 +590,7 @@ mod tests {
             ommers: vec![],
             withdrawals: Some(Default::default()),
             slashed: None,
-            bridge_requests: None,
+            bridge_requests: Some(alloy_primitives::Bytes::from_static(&[4, 0, 0, 0])),
         };
 
         // Create the block
@@ -614,6 +614,11 @@ mod tests {
         assert_eq!(sealed_block.header().number, decoded.header().number);
         assert_eq!(sealed_block.header().state_root, decoded.header().state_root);
         assert_eq!(sealed_block.body().transactions.len(), decoded.body().transactions.len());
+        assert_eq!(
+            sealed_block.body().bridge_requests,
+            decoded.body().bridge_requests,
+            "bridge requests must survive sealing and RLP roundtrip"
+        );
     }
 
     #[test]
