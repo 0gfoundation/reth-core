@@ -547,6 +547,8 @@ mod tests {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
+            slashed: None,
+            bridge_requests: None,
         };
 
         alloy_consensus::Block::new(header, body)
@@ -587,6 +589,8 @@ mod tests {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
+            slashed: None,
+            bridge_requests: None,
         };
 
         // Create the block
@@ -670,6 +674,8 @@ mod tests {
             transactions: vec![tx_signed],
             ommers: vec![],
             withdrawals: Some(Default::default()),
+            slashed: None,
+            bridge_requests: None,
         };
 
         // Create the block

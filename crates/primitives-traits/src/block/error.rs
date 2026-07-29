@@ -21,7 +21,13 @@ use crate::transaction::signed::RecoveryError;
 /// let tx = TxLegacy::default();
 /// let signed_tx = Signed::new_unchecked(tx, Signature::test_signature(), B256::ZERO);
 /// let envelope = TxEnvelope::Legacy(signed_tx);
-/// let body = BlockBody { transactions: vec![envelope], ommers: vec![], withdrawals: None };
+/// let body = BlockBody {
+///     transactions: vec![envelope],
+///     ommers: vec![],
+///     withdrawals: None,
+///     slashed: None,
+///     bridge_requests: None,
+/// };
 /// let block = Block::new(header, body);
 /// let sealed_block = SealedBlock::new_unchecked(block, B256::ZERO);
 ///

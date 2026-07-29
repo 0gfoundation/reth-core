@@ -21,16 +21,16 @@ reth-zstd-compressors = { version = "0.5.2", path = "crates/zstd-compressors", d
 # eth/alloy
 alloy-primitives = { version = "1.5.6", default-features = false, features = ["map-foldhash"] }
 alloy-rlp = { version = "0.3.13", default-features = false, features = ["core-net"] }
-alloy-rpc-types-eth = { version = "2.0", default-features = false }
+alloy-rpc-types-eth = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
 alloy-trie = { version = "0.9.4", default-features = false }
-alloy-consensus = { version = "2.0", default-features = false }
-alloy-eips = { version = "2.0", default-features = false }
-alloy-network = { version = "2.0", default-features = false }
-alloy-signer = { version = "2.0", default-features = false }
-alloy-genesis = { version = "2.0", default-features = false }
-revm-primitives = { version = "41.0.0", default-features = false }
-revm-bytecode = { version = "41.0.0", default-features = false }
-revm-state = { version = "41.0.0", default-features = false }
+alloy-consensus = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
+alloy-eips = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
+alloy-network = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
+alloy-signer = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
+alloy-genesis = { version = "2.0", git = "https://github.com/0gfoundation/0g-alloy", rev = "b5a5742684751ac844277c7c24974e555c26edfe", default-features = false }
+revm-primitives = { version = "41.0.0", git = "https://github.com/0gfoundation/revm", rev = "61891ae569f888e05b7966413fe0ec682fe93761", default-features = false }
+revm-bytecode = { version = "41.0.0", git = "https://github.com/0gfoundation/revm", rev = "61891ae569f888e05b7966413fe0ec682fe93761", default-features = false }
+revm-state = { version = "41.0.0", git = "https://github.com/0gfoundation/revm", rev = "61891ae569f888e05b7966413fe0ec682fe93761", default-features = false }
 
 # crypto
 secp256k1 = { version = "0.30", default-features = false, features = ["global-context", "recovery"] }
@@ -38,6 +38,7 @@ secp256k1 = { version = "0.30", default-features = false, features = ["global-co
 # misc
 bytes = { version = "1.11.1", default-features = false }
 byteorder = "1"
+bincode = { version = "2.0.1", features = ["serde"] }
 dashmap = "6.0"
 derive_more = { version = "2", default-features = false, features = ["full"] }
 modular-bitfield = "0.13.1"

@@ -557,6 +557,8 @@ where
             transactions,
             ommers: block.body.ommers,
             withdrawals: block.body.withdrawals,
+            slashed: block.body.slashed,
+            bridge_requests: block.body.bridge_requests,
         };
 
         let block = alloy_consensus::Block::new(header, body);
@@ -853,7 +855,7 @@ mod rpc_compat {
 
             let (block, senders) = self.split_sealed();
             let (header, body) = block.split_sealed_header_body();
-            let BlockBody { transactions, ommers, withdrawals } = body.into_ethereum_body();
+            let BlockBody { transactions, ommers, withdrawals, .. } = body.into_ethereum_body();
 
             let transactions = transactions
                 .into_iter()
@@ -932,6 +934,7 @@ mod tests {
 
     #[test]
     fn test_from_block_with_recovered_transactions() {
+        let bridge_requests = Bytes::from_static(&[4, 0, 0, 0]);
         let tx = TxLegacy {
             chain_id: Some(1),
             nonce: 0,
@@ -956,6 +959,8 @@ mod tests {
             transactions: vec![recovered_tx],
             ommers: vec![],
             withdrawals: None,
+            slashed: None,
+            bridge_requests: Some(bridge_requests.clone()),
         };
         let block_with_recovered = alloy_consensus::Block::new(header, body);
 
@@ -966,5 +971,6 @@ mod tests {
         assert_eq!(recovered_block.senders().len(), 1);
         assert_eq!(recovered_block.senders()[0], sender);
         assert_eq!(recovered_block.body().transactions().count(), 1);
+        assert_eq!(recovered_block.body().bridge_requests.as_ref(), Some(&bridge_requests));
     }
 }
